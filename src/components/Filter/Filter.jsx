@@ -1,7 +1,8 @@
-function Filter() {
+function Filter({filter, handleChange}) {
   return (
     <>
-      Filter
+      <p>Find contacts by name</p>
+      <input type="text" value={filter} onChange={handleChange} />
     </>
   );
 };

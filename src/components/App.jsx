@@ -3,6 +3,7 @@ import { nanoid } from "nanoid";
 // import s from "./App.module.css";
 import ContactForm from "./ContactForm/ContactForm";
 import ContactList from "./ContactList/ContactList";
+import Filter from "./Filter/Filter";
 
 export class App extends Component {
   constructor() {
@@ -67,8 +68,11 @@ export class App extends Component {
         />        
 
         <h2>Conatcts</h2>
-        <p>Find contacts by name</p>
-        <input type="text" value={filter} onChange={this.handleChange} />
+        <Filter
+          filter={filter}
+          handleChange={this.handleChange}
+        />
+        
         <ContactList
           filteredNameContact={filteredNameContact}
         />
