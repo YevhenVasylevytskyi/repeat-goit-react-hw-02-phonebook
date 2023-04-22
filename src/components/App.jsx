@@ -19,6 +19,10 @@ export class App extends Component {
   
   addContact = data => {
     this.setState(prevState => {
+      if (prevState.contacts.some(contact => contact.name.includes(data.name))) {
+        return alert(`${data.name} is already in contacts!`);
+      }
+
       return { contacts: [...prevState.contacts, data] };
     });
   };
