@@ -27,6 +27,16 @@ export class App extends Component {
     });
   };
 
+  deleteContact = currentId => {
+    this.setState(prevState => {
+      return {
+        contacts: [
+          ...prevState.contacts.filter(contact => contact.id !== currentId),
+        ],
+      };
+    });
+  };
+
   changeFilter = event => {
     this.setState({ filter: event.currentTarget.value.toLocaleLowerCase() });
   };
@@ -57,10 +67,12 @@ export class App extends Component {
         {this.state.filter === '' ? (
             <ContactList
               contacts={this.state.contacts}
+              deleteContact={this.deleteContact}
             />
           ) : (
             <ContactList
               contacts={this.onFilter()}
+              deleteContact={this.deleteContact}
             />
           )}
       </>        
