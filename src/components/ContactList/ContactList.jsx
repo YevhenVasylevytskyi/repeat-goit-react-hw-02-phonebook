@@ -1,12 +1,11 @@
-function ContactList({filteredNameContact}) {
+function ContactList({contacts}) {
   return (
     <ul>
-      {filteredNameContact.map(contact => (
+      {contacts.map(contact => (
         <li key={contact.id}>{contact.name}: {contact.number}</li>
       ))}
     </ul>
   );
 };
-
 
 export default ContactList;

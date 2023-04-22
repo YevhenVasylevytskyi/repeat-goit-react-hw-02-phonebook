@@ -1,15 +1,11 @@
 import { Component } from "react";
-import { nanoid } from "nanoid";
 // import s from "./App.module.css";
 import ContactForm from "./ContactForm/ContactForm";
 import ContactList from "./ContactList/ContactList";
 import Filter from "./Filter/Filter";
 
 export class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
+  state = {
       contacts: [
         {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
         {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
@@ -20,62 +16,49 @@ export class App extends Component {
       name: '',
       number: ''
     };
-  }
-
-  handleSubmit = evt => {
-    evt.preventDefault();
-    const form = evt.currentTarget;
-    const name = form.elements.name.value;
-    const number = form.elements.number.value;
-    const fomData = {
-      id: nanoid(),
-      name: name,
-      number: number
-    }
-    console.log(fomData)
+  
+  addContact = data => {
     this.setState(prevState => {
-      return { contacts: [...prevState.contacts, fomData] }
+      return { contacts: [...prevState.contacts, data] };
     });
-  
-    form.reset();
   };
 
-  handleChange = evt => {
-    this.setState({ filter: evt.target.value });
+  changeFilter = event => {
+    this.setState({ filter: event.currentTarget.value.toLocaleLowerCase() });
   };
 
-  
+  onFilter = () => {
+    const { contacts, filter } = this.state;
+
+    return contacts.filter(contact =>
+      contact.name.toLocaleLowerCase().includes(filter),
+    );
+  };
 
   render() {   
-    const { contacts } = this.state;
-    const { filter } = this.state;
-    const normalizeFilterInput = filter.toLocaleLowerCase()
-
-    const filteredNameContact = contacts.filter(contact => {
-      const normalizeName = contact.name.toLocaleLowerCase()
-
-      if (normalizeName.includes(normalizeFilterInput)) {
-        return contact
-      }
-    })
-
+    
     return (      
       <>
         <h1>Phonebook</h1>
 
         <ContactForm
-          handleSubmit={this.handleSubmit}
+          onSubmit={this.addContact} 
         />        
 
         <h2>Conatcts</h2>
         <Filter
-          filter={filter}
-          handleChange={this.handleChange}
+          filter={this.state.filter}
+          onChangeFilter={this.changeFilter}
         />
-        
-        <ContactList
-          filteredNameContact={filteredNameContact}
-        />
+        {this.state.filter === '' ? (
+            <ContactList
+              contacts={this.state.contacts}
+            />
+          ) : (
+            <ContactList
+              contacts={this.onFilter()}
+            />
+          )}
       </>        
     );
   }
