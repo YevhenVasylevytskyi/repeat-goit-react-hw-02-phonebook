@@ -1,8 +1,9 @@
 import { Component } from "react";
-// import s from "./App.module.css";
 import ContactForm from "./ContactForm/ContactForm";
 import ContactList from "./ContactList/ContactList";
 import Filter from "./Filter/Filter";
+import Container from "./Container/Container";
+import Section from "./Section/Section";
 
 export class App extends Component {
   state = {
@@ -52,19 +53,19 @@ export class App extends Component {
   render() {   
     
     return (      
-      <>
-        <h1>Phonebook</h1>
+      <Container>
+        <Section title="Phonebook">
+          <ContactForm
+            onSubmit={this.addContact} 
+          />
+        </Section>                
 
-        <ContactForm
-          onSubmit={this.addContact} 
-        />        
-
-        <h2>Conatcts</h2>
-        <Filter
-          filter={this.state.filter}
-          onChangeFilter={this.changeFilter}
-        />
-        {this.state.filter === '' ? (
+        <Section title="Contacts">        
+          <Filter
+            filter={this.state.filter}
+            onChangeFilter={this.changeFilter}
+          />
+          {this.state.filter === '' ? (
             <ContactList
               contacts={this.state.contacts}
               deleteContact={this.deleteContact}
@@ -75,7 +76,8 @@ export class App extends Component {
               deleteContact={this.deleteContact}
             />
           )}
-      </>        
+        </Section>
+      </Container>        
     );
   }
 }
