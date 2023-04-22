@@ -1,4 +1,6 @@
-function Filter({filter, onChangeFilter}) {
+import PropTypes from 'prop-types';
+
+function Filter({ filter, onChangeFilter }) {
   return (
     <>
       <p>Find contacts by name</p>
@@ -10,6 +12,11 @@ function Filter({filter, onChangeFilter}) {
       />
     </>
   );
+};
+
+Filter.protoType = {
+  filter: PropTypes.string,
+  onChangeFilter: PropTypes.func,
 };
 
 export default Filter;

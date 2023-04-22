@@ -1,4 +1,6 @@
-function ContactList({contacts, deleteContact}) {
+import PropTypes from 'prop-types';
+
+function ContactList({ contacts, deleteContact }) {
   return (
     <ul>
       {contacts.map(contact => (
@@ -17,6 +19,11 @@ function ContactList({contacts, deleteContact}) {
       ))}
     </ul>
   );
+};
+
+ContactList.propTypes = {
+  contacts: PropTypes.array,
+  deleteContact: PropTypes.func,
 };
 
 export default ContactList;
